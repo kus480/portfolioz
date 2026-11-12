@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5e8e8">
+    <meta
+      name="description"
+      content="Живопись и декоративные покрытия художницы Зеелиг."
+    >
+    <title>Зеелиг — мир глазами художника</title>
+    <link rel="preconnect" href="http://localhost:1337">
+    <link rel="stylesheet" href="./styles.css">
+    <script src="./config.js" defer></script>
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <div class="page-backdrop" aria-hidden="true"></div>
+    <header class="navbar">
+      <a class="brand" href="#home" aria-label="Зеелиг — на главную">Зеелиг</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation">
+        <span></span><span></span>
+        <span class="sr-only">Открыть меню</span>
+      </button>
+      <nav id="primary-navigation" class="nav-links" aria-label="Основная навигация">
+        <a href="#home">Главная</a>
+        <a href="#gallery">Работы</a>
+        <a href="#paintings">Картины</a>
+        <a href="#decor">Декоративные покрытия</a>
+        <a href="#about">Обо мне</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="home" class="hero" aria-labelledby="hero-title">
+        <div class="hero-wash" aria-hidden="true"></div>
+        <div class="hero-content">
+          <h1 id="hero-title">Мир глазами<br><em>художника</em></h1>
+          <p class="hero-copy">
+            Искусство, которое говорит с душой<br>
+            Живопись, графика, цифровое искусство в современном прочтении
+          </p>
+          <p class="hero-stats"><strong>70+</strong> работ создано <span aria-hidden="true">|</span> <strong>5+</strong> лет творчества</p>
+          <button class="button button-primary" type="button" data-scroll-to-gallery>
+            Смотреть коллекцию
+          </button>
+        </div>
+      </section>
+
+      <section id="gallery" class="random-section" aria-labelledby="random-title">
+        <div class="section-heading">
+          <h2 id="random-title">Работы художника</h2>
+          <p>Все работы художника</p>
+        </div>
+        <div class="random-grid" data-random-grid aria-live="polite">
+          <p class="status-message">Загружаем работы…</p>
+        </div>
+        <div class="random-controls" aria-label="Переключение работ">
+          <button class="slider-button random-previous" type="button" aria-label="Предыдущая работа" disabled>‹</button>
+          <button class="slider-button random-next" type="button" aria-label="Следующая работа" disabled>›</button>
+        </div>
+      </section>
+
+      <section id="paintings" class="collection-section" aria-labelledby="paintings-title">
+        <div class="section-heading">
+          <h2 id="paintings-title">Картины</h2>
+        </div>
+        <div class="category-browser" data-section="paintings">
+          <div class="tab-list" role="tablist" aria-label="Категории картин">
+            <button class="tab-button is-active" type="button" role="tab" aria-selected="true" data-subcategory-name="По стилю">По стилю</button>
+            <button class="tab-button" type="button" role="tab" aria-selected="false" data-subcategory-name="По сюжету">По сюжету</button>
+            <button class="tab-button" type="button" role="tab" aria-selected="false" data-subcategory-name="Тренды года">Тренды года</button>
+          </div>
+          <div class="gallery-stage" aria-live="polite">
+            <div class="tag-panel reveal-panel" hidden></div>
+            <div class="work-panel reveal-panel" hidden></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="decor" class="collection-section collection-section-soft" aria-labelledby="decor-title">
+        <div class="section-heading">
+          <h2 id="decor-title">Декоративное покрытие</h2>
+        </div>
+        <div class="category-browser" data-section="decor">
+          <div class="tab-list" role="tablist" aria-label="Категории декоративных покрытий">
+            <button class="tab-button is-active" type="button" role="tab" aria-selected="true" data-subcategory-name="Декоративное покрытие стен">Декоративное покрытие стен</button>
+            <button class="tab-button" type="button" role="tab" aria-selected="false" data-subcategory-name="Роспись стен">Роспись стен</button>
+            <button class="tab-button" type="button" role="tab" aria-selected="false" data-subcategory-name="Фрески">Фрески</button>
+          </div>
+          <div class="gallery-stage" aria-live="polite">
+            <div class="tag-panel reveal-panel" hidden></div>
+            <div class="work-panel reveal-panel" hidden></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="about-section" aria-labelledby="about-title">
+        <div class="about-inner">
+          <h2 id="about-title" class="about-section-title">Обо мне</h2>
+          <div class="about-intro">
+            <figure class="about-portrait">
+              <div class="about-photo" role="img" aria-label="Фотография художницы Натальи"></div>
+              <figcaption class="about-caption">
+                <h3>Превращаю стены в истории, а эмоции — в цвет</h3>
+                <p>Художник, колорист и мастер декоративных покрытий. Создаю пространства, в которых хочется жить.</p>
+              </figcaption>
+            </figure>
+            <div class="about-story">
+              <div class="about-copy">
+                <p><strong>Привет! Меня зовут Наталья.</strong></p>
+                <p>Более 7 лет я создаю искусство на стыке живописи, колористики и интерьерного дизайна.</p>
+                <p>Цвет и фактура помогают мне создавать атмосферу — от камерного холста до масштабных объектов, от загородных домов до ресторанов.</p>
+                <p><strong>Мой главный принцип:</strong> искусство дополняет интерьер, а не спорит с ним. Я лично веду каждый проект от эскиза до финального мазка, отвечая за качество и результат.</p>
+              </div>
+
+              <div class="about-services">
+                <h2>Чем я могу быть полезна</h2>
+                <div class="service-grid">
+                  <article class="service-card">
+                    <h3>Интерьерная живопись</h3>
+                    <p>Картины и графика, которые становятся смысловыми акцентами в интерьере.</p>
+                  </article>
+                  <article class="service-card">
+                    <h3>Роспись стен и панно</h3>
+                    <p>Авторские сюжеты и масштабные композиции для пустых поверхностей.</p>
+                  </article>
+                  <article class="service-card">
+                    <h3>Декоративная отделка</h3>
+                    <p>Фактуры от благородного шелка до брутального бетона — стены, которые хочется трогать.</p>
+                  </article>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contacts" class="contact-section" aria-label="Контакты">
+        <h2 class="contact-title">Контакты</h2>
+        <div class="contact-columns">
+          <div class="contact-group">
+            <h2 class="sr-only">Контакты художника</h2>
+            <div class="contact-links">
+              <a class="contact-icon-link" href="https://vk.ru/id222383197" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте художницы">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.3 7.1h3.2c.2 4.1 1.9 5.8 3.2 6.2V7.1h3v3.6c1.3-.1 2.7-1.7 3.2-3.6h3c-.4 2.1-1.9 3.8-3 4.5 1.1.6 2.8 2.1 3.7 4.7h-3.3c-.6-1.8-2-3.2-3.6-3.3v3.3h-.4c-5.3 0-8.3-3.7-8.4-9.2Z"/></svg>
+              </a>
+              <a class="contact-icon-link" href="https://dzen.ru/id/69e3631884682b30e384f555" target="_blank" rel="noopener noreferrer" aria-label="Дзен художницы">
+                <svg class="dzen-icon" viewBox="0 0 32 32" aria-hidden="true">
+                  <rect width="32" height="32" rx="8" fill="currentColor"></rect>
+                  <path d="M16 3.5c.3 6.7 2.3 10.2 12.5 12.5C18.3 18.3 16.3 21.8 16 28.5 15.7 21.8 13.7 18.3 3.5 16 13.7 13.7 15.7 10.2 16 3.5Z" fill="#fff"></path>
+                  <path d="M7.1 7.1c.1 2.8 1 4.3 5.3 5.3-4.3 1-5.2 2.5-5.3 5.3-.1-2.8-1-4.3-5.3-5.3 4.3-1 5.2-2.5 5.3-5.3Z" fill="#fff"></path>
+                </svg>
+              </a>
+              <a class="contact-icon-link" href="tel:+79004715190" aria-label="Позвонить художнице">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 2.8 9.5 2l2 4.8-2.2 1.8a15 15 0 0 0 6.1 6.1l1.8-2.2 4.8 2-.8 2.9a3 3 0 0 1-3.2 2.2A17.7 17.7 0 0 1 4.4 9.4a3 3 0 0 1 2.2-3.2Z"/></svg>
+              </a>
+              <a class="contact-icon-link" href="mailto:nata.zeelig@mail.ru" aria-label="Написать художнице">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 5.5h17a1.5 1.5 0 0 1 1.5 1.5v10a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 17V7a1.5 1.5 0 0 1 1.5-1.5Zm.1 2 8.4 6 8.4-6"/></svg>
+              </a>
+            </div>
+            <h3 class="contact-group-title">Художник</h3>
+          </div>
+          <div class="contact-group">
+            <h2 class="sr-only">Контакты программиста</h2>
+            <div class="contact-links">
+              <a class="contact-icon-link" href="https://t.me/nice_to_meet_you_cat" target="_blank" rel="noopener noreferrer" aria-label="Telegram программиста">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21.5 3.4-3.2 16.1c-.2 1.1-.8 1.4-1.7.9l-4.7-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.4-4.8 8.8-8c.4-.4-.1-.6-.6-.3L6.3 13.4l-4.6-1.4c-1-.3-1-1 .2-1.5L20 3.2c.9-.3 1.7.2 1.5.2Z"/></svg>
+              </a>
+              <a class="contact-icon-link" href="tel:+79040123208" aria-label="Позвонить программисту">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 2.8 9.5 2l2 4.8-2.2 1.8a15 15 0 0 0 6.1 6.1l1.8-2.2 4.8 2-.8 2.9a3 3 0 0 1-3.2 2.2A17.7 17.7 0 0 1 4.4 9.4a3 3 0 0 1 2.2-3.2Z"/></svg>
+              </a>
+              <a class="contact-icon-link" href="mailto:alinarepnikovajojo7@gmail.com" aria-label="Написать программисту">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 5.5h17a1.5 1.5 0 0 1 1.5 1.5v10a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 17V7a1.5 1.5 0 0 1 1.5-1.5Zm.1 2 8.4 6 8.4-6"/></svg>
+              </a>
+            </div>
+            <h3 class="contact-group-title">Программист</h3>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p class="site-footer-copy">
+        <span>© 2026 Зеелинг. Все права защищены.</span>
+        <span>Сайт является персональным портфолио художника и носит ознакомительный характер. 0+</span>
+      </p>
+    </footer>
+    <button class="back-to-top" type="button" aria-label="Вернуться наверх" title="Наверх">
+      <span aria-hidden="true">↑</span>
+    </button>
+
+    <dialog class="artwork-dialog" aria-label="Просмотр работы">
+      <div class="dialog-shell">
+        <button class="icon-button dialog-close" type="button" aria-label="Закрыть просмотр">×</button>
+        <div class="artwork-stage">
+          <img class="dialog-image" alt="">
+          <button class="icon-button fullscreen-button" type="button" aria-label="Развернуть изображение на весь экран" title="На весь экран">⛶</button>
+          <button class="slider-button slider-previous" type="button" aria-label="Предыдущая работа">‹</button>
+          <button class="slider-button slider-next" type="button" aria-label="Следующая работа">›</button>
+          <span class="slide-count" aria-live="polite"></span>
+        </div>
+        <div class="artwork-details">
+          <div class="artwork-details-fixed">
+            <h2 class="dialog-title"></h2>
+            <div class="dialog-tags"></div>
+          </div>
+          <div class="artwork-description-scroll">
+            <p class="dialog-description"></p>
+          </div>
+        </div>
+      </div>
+    </dialog>
+    <div class="image-fullscreen-fallback" aria-hidden="true">
+      <button class="icon-button fallback-close" type="button" aria-label="Закрыть полноэкранный просмотр">×</button>
+      <img alt="">
+    </div>
+  </body>
+</html>
