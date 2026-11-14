@@ -1,5 +1,5 @@
 window.PORTFOLIO_CONFIG = {
-  apiBaseUrl: "http://localhost:1337/api",
+  apiBaseUrl: "https://portfolioz-backend-zeelig.msk1.amvera.tech/api",
   endpoints: {
     categories: "categories",
     subcategories: "subcategories",
