@@ -40,6 +40,16 @@ Strapi gives you many possible deployment options for your project including [St
 yarn strapi deploy
 ```
 
+### Amvera with persistent `/data`
+
+Configure the backend service to use Node.js 18–22 and mount persistent storage at `/data`. Set `DATABASE_CLIENT=sqlite` and `DATABASE_FILENAME=/data/data.db`. The `start` script copies any existing files missing from `public/uploads` to `/data/uploads`, then replaces `public/uploads` with a symlink to the persistent directory before starting Strapi.
+
+If files with the same name have different contents, startup stops without deleting the original uploads; resolve the conflict before retrying. Existing local SQLite data and ignored media are not deployed by Git: back up and transfer the database and its matching uploads to `/data` separately before the first production start.
+
+Copy the variables from your local `backend/.env` into the Amvera service settings. Keep `APP_KEYS`, `API_TOKEN_SALT`, `ADMIN_JWT_SECRET`, `TRANSFER_TOKEN_SALT`, and `JWT_SECRET` private and preserve their existing values. Set `HOST=0.0.0.0`; use the port configured or provided by Amvera. `DATABASE_FILENAME` defaults to `.tmp/data.db` locally.
+
+The CORS middleware currently permits every origin and the standard HTTP methods. Strapi 4 requires the string `'*'` for a wildcard; `['*']` is treated as an exact origin list. Restrict `origin` to the frontend domain for production if the API should not be accessible from arbitrary websites.
+
 ## 📚 Learn more
 
 - [Resource center](https://strapi.io/resource-center) - Strapi resource center.
