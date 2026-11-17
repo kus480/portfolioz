@@ -1223,6 +1223,87 @@ h2 {
   font-size: 0.9rem;
   line-height: 1.8;
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.dialog-description p,
+.dialog-description ul,
+.dialog-description ol,
+.dialog-description blockquote,
+.dialog-description pre,
+.dialog-description figure {
+  margin: 0 0 1em;
+}
+
+.dialog-description strong {
+  font-weight: 700;
+}
+
+.dialog-description em {
+  font-style: italic;
+}
+
+.dialog-description h1,
+.dialog-description h2,
+.dialog-description h3,
+.dialog-description h4,
+.dialog-description h5,
+.dialog-description h6 {
+  margin: 1em 0 0.5em;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.dialog-description h1 { font-size: 2em; }
+.dialog-description h2 { font-size: 1.5em; }
+.dialog-description h3 { font-size: 1.3em; }
+.dialog-description h4 { font-size: 1.15em; }
+.dialog-description h5 { font-size: 1em; }
+.dialog-description h6 { font-size: 0.9em; }
+
+.dialog-description ul,
+.dialog-description ol {
+  padding-left: 2em;
+}
+
+.dialog-description ul {
+  list-style-type: disc;
+}
+
+.dialog-description ol {
+  list-style-type: decimal;
+}
+
+.dialog-description li > ul,
+.dialog-description li > ol {
+  margin-bottom: 0;
+}
+
+.dialog-description blockquote {
+  padding-left: 1em;
+  border-left: 2px solid #caaab4;
+}
+
+.dialog-description code {
+  font-family: monospace;
+}
+
+.dialog-description pre {
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+.dialog-description a {
+  color: var(--rose-dark);
+  text-decoration: underline;
+}
+
+.dialog-description img {
+  height: auto;
+}
+
+.dialog-description figcaption {
+  font-size: 0.85em;
 }
 
 .artwork-stage:fullscreen {

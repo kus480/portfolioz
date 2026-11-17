@@ -54,14 +54,107 @@
     return record.Name || record.name || record.title || record.slug || "";
   }
 
-  function plainText(value) {
-    if (typeof value === "string" || typeof value === "number") return String(value);
-    if (Array.isArray(value)) return value.map(plainText).filter(Boolean).join("\n");
-    if (value && typeof value === "object") {
-      if (typeof value.text === "string") return value.text;
-      if (Array.isArray(value.children)) return value.children.map(plainText).filter(Boolean).join("");
+  function escapeHtml(value) {
+    return String(value).replace(/[&<>"']/g, (character) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;",
+    })[character]);
+  }
+
+  function safeRichTextUrl(value, baseUrl, protocols) {
+    if (typeof value !== "string" || !value.trim()) return "";
+    try {
+      const url = new URL(value.trim(), baseUrl);
+      if (protocols.includes(url.protocol)) return url.href;
+    } catch (error) {
+      console.warn("Некорректный адрес в описании работы.", error);
+      return "";
     }
+    console.warn("Недопустимый протокол ссылки в описании работы.");
     return "";
+  }
+
+  function renderRichTextNode(node) {
+    if (!node || typeof node !== "object") {
+      console.warn("Некорректный блок в описании работы.", node);
+      return "";
+    }
+
+    if (node.type === "text") {
+      let text = escapeHtml(node.text ?? "");
+      if (!text) return "";
+      [
+        ["bold", "strong"],
+        ["italic", "em"],
+        ["underline", "u"],
+        ["strikethrough", "s"],
+        ["code", "code"],
+      ].forEach(([modifier, tag]) => {
+        if (node[modifier]) text = `<${tag}>${text}</${tag}>`;
+      });
+      return text;
+    }
+
+    const children = Array.isArray(node.children)
+      ? node.children.map(renderRichTextNode).join("")
+      : "";
+
+    switch (node.type) {
+      case "paragraph":
+        return `<p>${children || "<br>"}</p>`;
+      case "heading": {
+        const level = Number(node.level);
+        if (!Number.isInteger(level) || level < 1 || level > 6) {
+          console.warn("Некорректный уровень заголовка в описании работы.", node.level);
+          return `<p>${children || "<br>"}</p>`;
+        }
+        return `<h${level}>${children}</h${level}>`;
+      }
+      case "list": {
+        if (node.format !== "ordered" && node.format !== "unordered") {
+          console.warn("Неизвестный формат списка в описании работы.", node.format);
+        }
+        const tag = node.format === "ordered" ? "ol" : "ul";
+        return `<${tag}>${children}</${tag}>`;
+      }
+      case "list-item":
+        return `<li>${children}</li>`;
+      case "quote":
+        return `<blockquote>${children}</blockquote>`;
+      case "code":
+        return `<pre><code>${children}</code></pre>`;
+      case "link": {
+        const href = safeRichTextUrl(node.url, window.location.href, ["http:", "https:", "mailto:", "tel:"]);
+        return href ? `<a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">${children}</a>` : children;
+      }
+      case "image": {
+        const image = node.image || {};
+        const src = safeRichTextUrl(image.url, `${apiBaseUrl.replace(/\/api$/, "")}/`, ["http:", "https:"]);
+        if (!src) return "";
+        const alt = escapeHtml(image.alternativeText || "");
+        const caption = image.caption ? `<figcaption>${escapeHtml(image.caption)}</figcaption>` : "";
+        return `<figure><img src="${escapeHtml(src)}" alt="${alt}" loading="lazy">${caption}</figure>`;
+      }
+      default:
+        console.warn("Неизвестный тип блока в описании работы.", node.type);
+        return children;
+    }
+  }
+
+  function renderRichText(value) {
+    if (Array.isArray(value) && value.length) {
+      return value.map(renderRichTextNode).join("");
+    }
+    if (typeof value === "string" && value.trim()) {
+      return `<p>${escapeHtml(value)}</p>`;
+    }
+    if (value != null && !Array.isArray(value) && typeof value !== "string") {
+      console.warn("Некорректное описание работы.", value);
+    }
+    return "<p>Описание пока не добавлено.</p>";
   }
 
   function normalizeName(value) {
@@ -75,7 +168,7 @@
       id: artwork.id,
       title: artwork.title || artwork.name || "Без названия",
       price: artwork.price,
-      description: plainText(artwork.description) || "Описание пока не добавлено.",
+      description: artwork.description,
       imageUrl: getMediaUrl(artwork.image || artwork.cover),
       imageAlt: image.alternativeText || artwork.title || "Авторская работа",
       tags: getRelations(artwork.tags).map((tag) => ({
@@ -516,7 +609,7 @@
     dialogImage.src = artwork.imageUrl || "";
     dialogImage.alt = artwork.imageAlt || artwork.title;
     dialog.querySelector(".dialog-title").textContent = artwork.title;
-    dialog.querySelector(".dialog-description").textContent = artwork.description;
+    dialog.querySelector(".dialog-description").innerHTML = renderRichText(artwork.description);
     const tags = dialog.querySelector(".dialog-tags");
     tags.replaceChildren(...artwork.tags.map((tag) => makeElement("span", "mini-tag", tag.name)));
     dialog.querySelector(".slide-count").textContent = `${slideIndex + 1} / ${slideWorks.length}`;
