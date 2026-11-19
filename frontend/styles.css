@@ -724,29 +724,25 @@ h2 {
   display: flex;
   width: 100%;
   min-width: 0;
-  align-items: center;
-  gap: 0.55rem;
-  flex-wrap: nowrap;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .artwork-card-title {
+  width: 100%;
   min-width: 0;
-  flex: 1 1 auto;
-  overflow: hidden;
+  overflow-wrap: anywhere;
   font-family: "Playfair Display", serif;
   font-size: 1.16rem;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .artwork-card-tags {
   display: flex;
+  width: 100%;
   min-width: 0;
-  max-width: 45%;
-  gap: 0.4rem;
-  flex: 0 1 auto;
-  overflow: hidden;
-  flex-wrap: nowrap;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
 .dialog-tags {
