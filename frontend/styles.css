@@ -23,14 +23,14 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 6rem;
-  overflow-x: clip;
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
   min-width: 320px;
   padding-top: var(--navbar-height);
-  overflow-x: clip;
+  overflow-x: hidden;
   color: var(--ink);
   background: #f9f2ef;
 }
@@ -132,8 +132,8 @@ img {
   border-bottom: 1px solid transparent;
   background: rgba(255, 249, 249, 0.12);
   backdrop-filter: blur(7px);
-  transform: translateY(0);
-  transition: transform 0.3s ease, background 500ms ease, backdrop-filter 500ms ease;
+  transform: translate3d(var(--nav-shift, 0px), 0, 0);
+  transition: background 500ms ease, backdrop-filter 500ms ease;
   will-change: transform;
 }
 
@@ -179,7 +179,7 @@ img {
   justify-content: center;
   padding: 5rem var(--page-gutter) 4rem;
   background: transparent;
-  transform: translate3d(var(--hero-shift, 0px), 0, 0);
+  transform: translate3d(var(--hero-shift, 0%), 0, 0);
   opacity: var(--hero-opacity, 1);
   will-change: transform, opacity;
 }

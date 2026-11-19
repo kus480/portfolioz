@@ -705,20 +705,21 @@
       });
     };
     const updateScrollEffects = () => {
-      const scrollY = window.scrollY;
+      const scrollY = Math.max(0, window.scrollY);
       const progress = Math.min(scrollY / Math.max(hero.offsetHeight, 1), 1);
       const easedProgress = progress * progress * (3 - 2 * progress);
-      const heroShift = easedProgress * Math.min(window.innerWidth * 0.12, 96);
-      hero.style.setProperty("--hero-shift", `${heroShift}px`);
-      hero.style.setProperty("--hero-opacity", String(1 - easedProgress));
+      hero.style.setProperty("--hero-shift", `${easedProgress * 100}%`);
+      hero.style.setProperty("--hero-opacity", String(1 - easedProgress * 0.25));
+      navbar.style.setProperty("--nav-shift", `${easedProgress * Math.min(window.innerWidth * 0.04, 30)}px`);
       backToTop.classList.toggle("is-visible", scrollY >= hero.offsetHeight);
       scrollFrame = 0;
     };
-    window.addEventListener("scroll", () => {
+    const scheduleScrollEffects = () => {
       if (!scrollFrame) scrollFrame = requestAnimationFrame(updateScrollEffects);
-    }, { passive: true });
+    };
+    window.addEventListener("scroll", scheduleScrollEffects, { passive: true });
     window.addEventListener("resize", () => {
-      updateScrollEffects();
+      scheduleScrollEffects();
       const expectedCardCount = window.matchMedia("(max-width: 800px)").matches
         ? Math.min(1, galleryWorks.length)
         : Math.min(2, galleryWorks.length);
@@ -730,7 +731,7 @@
         renderRandomWorks(galleryWorks);
       }
     });
-    updateScrollEffects();
+    scheduleScrollEffects();
 
     document.querySelector("[data-scroll-to-gallery]").addEventListener("click", () => {
       scrollToSectionHeading(document.querySelector("#gallery"));
