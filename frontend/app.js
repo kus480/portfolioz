@@ -810,6 +810,8 @@
   function setupBrowsers() {
     document.querySelectorAll(".category-browser").forEach((browser) => {
       browser.querySelectorAll(".tab-button").forEach((button) => {
+        button.classList.remove("is-active");
+        button.setAttribute("aria-selected", "false");
         button.disabled = true;
         button.addEventListener("click", () => activateTab(browser, button));
       });
