@@ -1039,16 +1039,16 @@ h2 {
 
 .site-footer-copy {
   display: grid;
-  gap: 0.35rem;
-  margin: 0;
-  line-height: 1.55;
+  width: 100%;
+  max-width: 760px;
+  gap: 6px;
+  margin: 0 auto;
+  line-height: 1.5;
   text-align: center;
 }
 
-.site-footer-copy span + span {
-  max-width: 760px;
-  margin: 8px auto 0;
-  line-height: 1.5;
+.site-footer-copy p {
+  margin: 0;
 }
 
 .back-to-top {
