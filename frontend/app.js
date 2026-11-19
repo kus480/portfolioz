@@ -21,6 +21,7 @@
   let scrollFrame = 0;
   let lockedScrollY = null;
   let galleryAnimating = false;
+  let lastNavbarScrollY = window.scrollY;
 
   function toRecord(entry) {
     if (!entry || typeof entry !== "object") return {};
@@ -713,8 +714,15 @@
       const brandShift = easedProgress * (isMobile ? 16 : 38);
       hero.style.setProperty("--hero-shift", `${heroShift}px`);
       hero.style.setProperty("--hero-opacity", String(1 - easedProgress));
-      navbar.style.setProperty("--nav-shift", "0px");
       navbar.style.setProperty("--brand-shift", `${brandShift}px`);
+      const navbarScrollDelta = scrollY - lastNavbarScrollY;
+      if (scrollY <= 80) {
+        navbar.classList.remove("is-hidden");
+        lastNavbarScrollY = scrollY;
+      } else if (Math.abs(navbarScrollDelta) > 12) {
+        navbar.classList.toggle("is-hidden", navbarScrollDelta > 0);
+        lastNavbarScrollY = scrollY;
+      }
       backToTop.classList.toggle("is-visible", scrollY >= hero.offsetHeight);
       scrollFrame = 0;
     };
