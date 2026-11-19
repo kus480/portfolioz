@@ -21,7 +21,6 @@
   let scrollFrame = 0;
   let lockedScrollY = null;
   let galleryAnimating = false;
-  let lastNavbarScrollY = window.scrollY;
 
   function toRecord(entry) {
     if (!entry || typeof entry !== "object") return {};
@@ -709,20 +708,9 @@
       const scrollY = window.scrollY;
       const progress = Math.min(scrollY / Math.max(hero.offsetHeight, 1), 1);
       const easedProgress = progress * progress * (3 - 2 * progress);
-      const heroShift = easedProgress * (window.innerWidth + hero.offsetWidth + 32);
-      const isMobile = window.matchMedia("(max-width: 800px)").matches;
-      const brandShift = easedProgress * (isMobile ? 16 : 38);
+      const heroShift = easedProgress * Math.min(window.innerWidth * 0.12, 96);
       hero.style.setProperty("--hero-shift", `${heroShift}px`);
       hero.style.setProperty("--hero-opacity", String(1 - easedProgress));
-      navbar.style.setProperty("--brand-shift", `${brandShift}px`);
-      const navbarScrollDelta = scrollY - lastNavbarScrollY;
-      if (scrollY <= 80) {
-        navbar.classList.remove("is-hidden");
-        lastNavbarScrollY = scrollY;
-      } else if (Math.abs(navbarScrollDelta) > 12) {
-        navbar.classList.toggle("is-hidden", navbarScrollDelta > 0);
-        lastNavbarScrollY = scrollY;
-      }
       backToTop.classList.toggle("is-visible", scrollY >= hero.offsetHeight);
       scrollFrame = 0;
     };
