@@ -1406,23 +1406,6 @@ h2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .artwork-card-meta {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-
-  .artwork-card-title {
-    width: 100%;
-  }
-
-  .artwork-card-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-
   .random-grid {
     grid-template-columns: minmax(0, 1fr);
     --carousel-gap: 0px;
@@ -1589,6 +1572,34 @@ h2 {
     flex-wrap: wrap;
     justify-content: center;
     text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .artwork-card-meta {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+  }
+
+  .artwork-card-title {
+    width: 100% !important;
+    text-align: left !important;
+  }
+
+  .artwork-card-tags {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+    gap: 6px !important;
+    width: 100% !important;
+  }
+
+  .artwork-card-tags .mini-tag {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 }
 
