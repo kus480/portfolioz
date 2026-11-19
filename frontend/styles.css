@@ -1415,6 +1415,23 @@ h2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .artwork-card-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .artwork-card-title {
+    width: 100%;
+  }
+
+  .artwork-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
   .random-grid {
     grid-template-columns: minmax(0, 1fr);
     --carousel-gap: 0px;
